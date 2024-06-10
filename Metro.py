@@ -1,3 +1,14 @@
+def mindistance(distance, stat):
+    length = len(stat)
+    minimum = float('inf')
+    ind = 0
+    for k in range(length):
+        if not stat[k] and distance[k] <= minimum:
+            minimum = distance[k]
+            ind = k
+    return ind
+
+
 def dijkstra(graph, source, stations):
     length = len(graph[0])
     distance = [float('inf')] * length
@@ -19,7 +30,58 @@ def dijkstra(graph, source, stations):
         else:
             print(stations[source], "--------->", stations[k], "  =  ", distance[k])
 
+def get_final_list(station):
+    intersections = []
 
+    for i in range(len(station) - 1):
+        for j in range(len(station[i])):
+            common = station[i][j]
+            if common in station[i + 1]:
+                intersections.append(common)
+
+    final_list = []
+
+    for i in range(len(station)):
+        for j in station[i]:
+            if j in final_list:
+                continue
+            else:
+                final_list.append(j)
+
+    return final_list
+
+
+def get_graph(final_list, station):
+
+
+    final_matrix = [[0 for i in final_list] for j in final_list]
+    my_dict = {key: [] for key in final_list}
+
+    for i in range(len(station)):
+        for j in range(len(station[i])):
+            if j == 0:
+                my_dict[station[i][j]] += [station[i][j + 1]]
+            elif j == len(station[i]) - 1:
+                my_dict[station[i][j]] += [station[i][j - 1]]
+            else:
+                my_dict[station[i][j]] += [station[i][j + 1]]
+                my_dict[station[i][j]] += [station[i][j - 1]]
+
+    for i in range(len(final_matrix)):
+        temp = my_dict[final_list[i]]
+        for j in range(len(final_matrix)):
+            if final_list[j] in temp:
+                final_matrix[i][j] = 1
+
+    return final_matrix
+
+
+def get_source_station(stations):
+    print("Enter the source station:")
+    for i in range(len(stations)):
+        print(f"Enter {i} for {stations[i]}")
+    source = int(input("Your choice: "))
+    return source
 
 def menu():
     Ahmedabad = [
