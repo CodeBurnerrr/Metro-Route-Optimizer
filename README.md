@@ -17,7 +17,7 @@ The Metro Route Optimizer is a Python-based application designed to efficiently 
  ### Steps:
  1. Clone the repository:
     ```
-    git clone https://github.com/YourUsername/Metro-Route-Optimizer.git
+    git clone https://github.com/CodeBurnerrr/Metro-Route-Optimizer.git
     ```
  2. Navigate to the project directory:
     ```
